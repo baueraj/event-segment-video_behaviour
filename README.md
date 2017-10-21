@@ -1,5 +1,5 @@
 # event-segment-video_behaviour
-Analysis of behavioural response data showing how children vs. adults parse cartoon videos into discrete events
+Analysis of behavioural response data showing how adults vs. children segment their continuous experience of the world into discrete events. Specifically, participants segmented their experience of watching videos into separate events.
 
 ## Code description
 
