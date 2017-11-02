@@ -212,6 +212,67 @@ def plot_mov_avg_events(s, win, clr, alph, plt_fl, newFig_fl):
 
 
 
+def plot_mov_gaussian_events(s, win, stdev, clr, alph, plt_fl, newFig_fl):
+    """
+    returns moving average (smoothing) of timeseries and optionally plots this new series
+
+    Parameters
+    ----------
+    s : pandas series
+        (only y-axis) data to be plotted 
+    win : int
+        window size (separately applied to past and future) for moving average
+    stdev : float
+        std for gaussian smoothing
+    clr : string
+        color for plot
+    alph: float/double/int?
+        level (0-1)for plot fill transparency
+    plt_fl: int/bool
+        flag to plot figure
+    newFig_fl : int/bool
+        flag to create new figure for plotting or plot on current/initialized figure
+
+    Returns
+    -------
+    srm : pandas series
+        moving average series 
+
+    Notes
+    -----
+    examples of frequently used series parameter:
+        ac1=allDat['aEventBounds'][0].sum(axis=1)
+    """
+    
+    import os, sys, pdb
+    import numpy as np
+    #np.set_printoptions(threshold = np.nan)
+    import pandas as pd 
+    import matplotlib.pyplot as plt
+    
+    # using 20 seconds as a non-parameterized (in function) default increment for x-ticks
+    stepSize = 20
+    
+    srm = s.rolling(window = win, win_type='gaussian').mean(std = stdev)
+    
+    if plt_fl:
+        if newFig_fl:
+            plt.figure()
+        ax = srm.plot.area(color = clr, alpha = alph)
+        rng = np.arange(0, max(s.index) + stepSize, stepSize)
+        
+        #ax.set_ylim([0, 1.8])
+        
+        #ax.set_xticks(rng)
+        #ax.set_xticklabels(reformat_timestamp(rng).values, rotation = -45)
+        #plt.axis('off')
+        #plt.xticks([], [])
+        #plt.yticks([], [])
+
+    return srm
+
+
+
 #NOT FINISHED!
 def plot_dis_mtx(mtx, labels, title=''):
     """
